@@ -1,11 +1,11 @@
-#Lipisha Payments Go SDK
+# Lipisha Payments Go SDK
 
 This package provides bindings for the Lipisha Payments API (http://developer.lipisha.com/)
  
  - Free software : MIT license
  - Documentation : http://developer.lipisha.com
 
-###Features
+### Features
  - Get account balance
  - Get float balance
  - Request money
@@ -28,7 +28,7 @@ This package provides bindings for the Lipisha Payments API (http://developer.li
  - Get users
 
 
-###Install
+### Install
 To install, use `go get`:
 
 ```bash
@@ -36,7 +36,7 @@ $ go get -d github.com/geeknat/lipisha-go-sdk
 ```
 
 
-###Usage
+### Usage
 Get your API Key and API Signature from Lipisha dashboard.
 
 Create a Lipisha object with the following parameters
@@ -59,10 +59,10 @@ lipishaApp := lipisha.Lipisha{
 ```
 
 
-###Examples
+### Examples
 
 
-#####Sample ITN implementation
+##### Sample ITN implementation
 
 Here's a sample IPN implementation in Go.
 
@@ -201,7 +201,7 @@ func (a *App) ITN(ctx context.Context) {
 ```
 
 
-#####Sample Methods
+##### Sample Methods
 More methods can be found by calling the Lipisha object.
 
 Get account balance :
@@ -280,11 +280,11 @@ Send money :
 	fmt.Println(response)
 ```
 
-## Licence
+### Licence
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-## Author
+### Author
 
 [Geek Nat](http://geeknat.com)
 
