@@ -85,7 +85,7 @@ apiRoutes.Post("/itn", a.ITN)
 
 ```go
 
-package ipn
+package itn
 
 import (
 	"github.com/geeknat/lipisha-go-sdk/lipisha"
