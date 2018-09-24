@@ -88,13 +88,9 @@ apiRoutes.Post("/itn", a.ITN)
 package ipn
 
 import (
-	"github.com/geeknat/pnd/config"
 	"github.com/geeknat/lipisha-go-sdk/lipisha"
-	"github.com/geeknat/pnd/payments"
 	"github.com/kataras/iris/context"
 	"encoding/json"
-	"github.com/geeknat/pnd/requests"
-	"github.com/geeknat/pnd/notifications"
 	"strconv"
 	"strings"
 	"log"
@@ -233,7 +229,8 @@ More methods can be found by calling the Lipisha object.
 
 Get account balance :
 
-```
+```go
+
         response, err := lipishaApp.GetAccountBalance()
 	if err != nil {
 		fmt.Println(err)
@@ -244,7 +241,7 @@ Get account balance :
 
 Get float balance :
 
-```
+```go
         accountNumber := "12345"
 
 	response, err := lipishaApp.GetAccountFloat(accountNumber)
@@ -257,7 +254,8 @@ Get float balance :
 
 Request money :
 
-```
+```go
+
 	accountNumber := "12345"
     	mobileNumber := "0718353279"
     	method := "Paybill (M-Pesa)"
@@ -285,7 +283,7 @@ Request money :
 
 Send money :
 
-```
+```go
         accountNumber := "15189"
 	mobileNumber := "0718353279"
 	currency := "KES"
