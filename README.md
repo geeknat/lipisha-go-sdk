@@ -32,7 +32,7 @@ This package provides bindings for the Lipisha Payments API (http://developer.li
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/geeknat/lipisha-go-sdk/lipisha
+$ go get github.com/geeknat/lipisha-go-sdk/lipisha
 ```
 
 
