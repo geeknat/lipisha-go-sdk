@@ -49,12 +49,23 @@ Create a Lipisha object with the following parameters
 
 4. A boolean flag to print out logs when debug mode is true. 
 
-```
-lipishaApp := lipisha.Lipisha{
-		APIKey:       "YOUR_API_KEY",
-		APISignature: "YOUR_API_SIGNATURE",
-		IsProduction: true,
-		Debug:        true}
+```go
+
+package test
+
+import (
+	"github.com/geeknat/lipisha-go-sdk/lipisha"
+)
+
+func handleLipisha(){
+	
+	lipishaApp := lipisha.Lipisha{
+    		APIKey:       "YOUR_API_KEY",
+    		APISignature: "YOUR_API_SIGNATURE",
+    		IsProduction: true,
+    		Debug:        true}
+	
+}
 		
 ```
 
@@ -68,11 +79,27 @@ Here's a sample IPN implementation in Go.
 
 Depending on your server implementation, have a POST route to the ITN handler
 
-```
+```go
 apiRoutes.Post("/itn", a.ITN)
 ```
 
-```
+```go
+
+package ipn
+
+import (
+	"github.com/geeknat/pnd/config"
+	"github.com/geeknat/lipisha-go-sdk/lipisha"
+	"github.com/geeknat/pnd/payments"
+	"github.com/kataras/iris/context"
+	"encoding/json"
+	"github.com/geeknat/pnd/requests"
+	"github.com/geeknat/pnd/notifications"
+	"strconv"
+	"strings"
+	"log"
+)
+
 type IPNAcknowledgeResponse struct {
 	ApiKey                       string
 	ApiSignature                 string
