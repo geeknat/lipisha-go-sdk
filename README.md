@@ -242,7 +242,7 @@ Get account balance :
 Get float balance :
 
 ```go
-        accountNumber := "12345"
+        accountNumber := 12345
 
 	response, err := lipishaApp.GetAccountFloat(accountNumber)
 	if err != nil {
@@ -256,11 +256,11 @@ Request money :
 
 ```go
 
-	accountNumber := "12345"
-    	mobileNumber := "0718353279"
+	accountNumber := 12345
+    	mobileNumber := 254718353279
     	method := "Paybill (M-Pesa)"
     	currency := "KES"
-    	amount := "1000"
+    	amount := 1000
     
     	// Your unique identifier for this transaction, it will be sent to your IPN
     	merchantReference := "1"
@@ -284,10 +284,10 @@ Request money :
 Send money :
 
 ```go
-        accountNumber := "15189"
-	mobileNumber := "0718353279"
+        accountNumber := 15189
+	mobileNumber := 254718353279
 	currency := "KES"
-	amount := "1000"
+	amount := 1000
 
 	// Your unique identifier for this transaction, it will be sent to your IPN
 	merchantReference := "1"

@@ -33,10 +33,10 @@ func (app *Lipisha) GetAccountBalance() (string, error) {
 }
 
 // GetAccountFloat returns the float in a given account number
-func (app *Lipisha) GetAccountFloat(accountNumber string) (string, error) {
+func (app *Lipisha) GetAccountFloat(accountNumber int) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", accountNumber)
+	data.Set("account_number", string(accountNumber))
 
 	return app.getURLResponse(getAccountFloat, data)
 }
@@ -44,13 +44,13 @@ func (app *Lipisha) GetAccountFloat(accountNumber string) (string, error) {
 // RequestMoney initiates a direct debit from the mobile money wallet e.g M-pesa,
 // of your customer into your account.
 // The customer gets an alert on their phone asking them to enter their PIN to confirm payment.
-func (app *Lipisha) RequestMoney(accountNumber, mobileNumber, method, amount, currency, myReference string) (string, error) {
+func (app *Lipisha) RequestMoney(accountNumber, mobileNumber, amount int, method, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", accountNumber)
-	data.Set("mobile_number", mobileNumber)
+	data.Set("account_number", string(accountNumber))
+	data.Set("mobile_number", string(mobileNumber))
+	data.Set("amount", string(amount))
 	data.Set("method", method)
-	data.Set("amount", amount)
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
 
@@ -60,12 +60,12 @@ func (app *Lipisha) RequestMoney(accountNumber, mobileNumber, method, amount, cu
 // SendMoney credits the mobile money wallet e.g M-PESA, of your customer from the float in your payout account.
 // The customer gets a mobile money SMS confirmation on their phone on receiving the money.
 // Once completed, it sends an Instant Transaction Notification or webhook event to your callback URL for you to process the transaction.
-func (app *Lipisha) SendMoney(accountNumber, mobileNumber, amount, currency, myReference string) (string, error) {
+func (app *Lipisha) SendMoney(accountNumber, mobileNumber, amount int, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", accountNumber)
-	data.Set("mobile_number", mobileNumber)
-	data.Set("amount", amount)
+	data.Set("account_number", string(accountNumber))
+	data.Set("mobile_number", string(mobileNumber))
+	data.Set("amount", string(amount))
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
 
@@ -75,12 +75,12 @@ func (app *Lipisha) SendMoney(accountNumber, mobileNumber, amount, currency, myR
 // SendAirtime recharges or tops up the airtime credit on your customer's phone from the float in your airtime account.
 // The customer gets an airtime topup SMS confirmation on their phone on recharge.
 // Once completed, it sends an Instant Transaction Notification or webhook event to your callback URL for you to process the transaction.
-func (app *Lipisha) SendAirtime(accountNumber, mobileNumber, amount, currency, myReference string) (string, error) {
+func (app *Lipisha) SendAirtime(accountNumber, mobileNumber, amount int, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", accountNumber)
-	data.Set("mobile_number", mobileNumber)
-	data.Set("amount", amount)
+	data.Set("account_number", string(accountNumber))
+	data.Set("mobile_number", string(mobileNumber))
+	data.Set("amount", string(amount))
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
 
@@ -89,11 +89,11 @@ func (app *Lipisha) SendAirtime(accountNumber, mobileNumber, amount, currency, m
 
 // SendSMS sends a text message via SMS to your customer.
 // Once completed, it sends an Instant Transaction Notification or webhook event to your callback URL for you to process the transaction.
-func (app *Lipisha) SendSMS(accountNumber, mobileNumber, message, myReference string) (string, error) {
+func (app *Lipisha) SendSMS(accountNumber, mobileNumber int, message, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", accountNumber)
-	data.Set("mobile_number", mobileNumber)
+	data.Set("account_number", string(accountNumber))
+	data.Set("mobile_number", string(mobileNumber))
 	data.Set("message", message)
 	data.Set("reference", myReference)
 
@@ -107,10 +107,10 @@ func (app *Lipisha) SendSMS(accountNumber, mobileNumber, message, myReference st
 // function with the transaction_index and transaction_reference returned by this
 // function to actually move the money to your account.
 // Kindly note that in some cases, debit card transactions may be settled before the Complete Card Transaction API call is completed and may NOT be reversible depending on the issuing bank.
-func (app *Lipisha) AuthorizeCardTransaction(accountNumber, cardNumber, addressOne, addressTwo, expiry, cardHolderName, email, mobileNumber, country, state, zip, securityCode, amount, currency, myReference string) (string, error) {
+func (app *Lipisha) AuthorizeCardTransaction(accountNumber, amount int, cardNumber, addressOne, addressTwo, expiry, cardHolderName, email, mobileNumber, country, state, zip, securityCode, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", accountNumber)
+	data.Set("account_number", string(accountNumber))
 	data.Set("mobile_number", mobileNumber)
 	data.Set("card_number", cardNumber)
 	data.Set("address1", addressOne)
@@ -121,7 +121,7 @@ func (app *Lipisha) AuthorizeCardTransaction(accountNumber, cardNumber, addressO
 	data.Set("country", country)
 	data.Set("state", state)
 	data.Set("zip", zip)
-	data.Set("amount", amount)
+	data.Set("amount", string(amount))
 	data.Set("security_code", securityCode)
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
@@ -166,11 +166,11 @@ func (app *Lipisha) VoidCardTransaction(transactionIndex, transactionReference s
 }
 
 // RequestSettlement requests a settlement of the account balance to a transaction or withdrawal account.
-func (app *Lipisha) RequestSettlement(toAccountNumber, amount string) (string, error) {
+func (app *Lipisha) RequestSettlement(toAccountNumber, amount int) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", toAccountNumber)
-	data.Set("amount", amount)
+	data.Set("account_number", string(toAccountNumber))
+	data.Set("amount", string(amount))
 
 	return app.getURLResponse(requestSettlement, data)
 }
