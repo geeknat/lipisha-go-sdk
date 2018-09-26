@@ -256,28 +256,54 @@ Request money :
 
 ```go
 
-	accountNumber := 12345
-    	mobileNumber := 254718353279
-    	method := "Paybill (M-Pesa)"
-    	currency := "KES"
-    	amount := 1000
-    
-    	// Your unique identifier for this transaction, it will be sent to your IPN
-    	merchantReference := "1"
-    
-    	response, err := lipishaApp.RequestMoney(
-    		accountNumber,
-    		mobileNumber,
-    		method,
-    		amount,
-    		currency,
-    		merchantReference)
-    
-    	if err != nil {
-    		fmt.Println(err)
-    	}
-    
-    	fmt.Println(response)
+		merchantAccNumber := 15373
+		mobileNumber := 254712345678
+		currency := "KES"
+		amount := 10
+		
+		// Your unique identifier for this transaction, it will be sent to your IPN
+		merchantReference := "12"
+
+		serverResponse, err := a.Lipisha.RequestMoney(
+			merchantAccNumber,
+			mobileNumber,
+			amount,
+			"Paybill (M-Pesa)",
+			currency,
+			merchantReference)
+
+		if err != nil {
+			fmt.Println(err)
+			response.RespondWithError(ctx.ResponseWriter(), http.StatusOK, "We encountered an error")
+			return
+		}
+
+		fmt.Println(serverResponse)
+
+		var responseMap map[string]*json.RawMessage
+
+		if err := json.Unmarshal([]byte(serverResponse), &responseMap); err != nil {
+			fmt.Println(err)
+			response.RespondWithError(ctx.ResponseWriter(), http.StatusOK, "We encountered an error")
+			return
+		}
+
+		status, err := utils.GetValueByUnmarshalToInterface("status", responseMap["status"])
+		if err != nil {
+			fmt.Println(err)
+			response.RespondWithError(ctx.ResponseWriter(), http.StatusOK, "We encountered an error")
+			return
+		}
+
+		if status == "SUCCESS" {
+
+			response.RespondWithJSON(ctx.ResponseWriter(), http.StatusOK, config.CodeSuccess, "Success")
+			return
+
+		}
+
+		response.RespondWithError(ctx.ResponseWriter(), http.StatusOK, "We encountered an error")
+
 
 ```
 
