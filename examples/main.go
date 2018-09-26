@@ -15,10 +15,10 @@ func main() {
 		IsProduction: true,
 		Debug:        true}
 
-	accountNumber := "15189"
-	mobileNumber := "0718353279"
+	accountNumber := 15189
+	mobileNumber := 254718353279
 	currency := "KES"
-	amount := "1000"
+	amount := 1000
 
 	// Your unique identifier for this transaction, it will be sent to your IPN
 	merchantReference := "1"
