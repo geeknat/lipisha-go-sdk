@@ -89,33 +89,17 @@ package itn
 
 import (
 	"github.com/geeknat/lipisha-go-sdk/lipisha"
-	"github.com/kataras/iris/context"
-	"encoding/json"
-	"strconv"
-	"strings"
-	"log"
+    ...
 )
-
-type IPNAcknowledgeResponse struct {
-	ApiKey                       string
-	ApiSignature                 string
-	ApiVersion                   string
-	ApiType                      string
-	TransactionStatus            string
-	TransactionReference         string
-	TransactionStatusCode        string
-	TransactionStatusDescription string
-	TransactionStatusReason      string
-	TransactionStatusAction      string
-	TransactionCustomSMS         string
-}
-
 
 // I'm using the iris framework, so some functions may vary.
 
 // Lipisha functions remain the same regardless
 
 func (a *App) ITN(ctx context.Context) {
+
+	log.Println("ITN.......")
+	log.Println(ctx.FormValues())
 
 	apiKey := ctx.PostValue("api_key")
 	apiSignature := ctx.PostValue("api_signature")
@@ -172,10 +156,10 @@ func (a *App) ITN(ctx context.Context) {
 				return
 			}
 
-			w := ctx.ResponseWriter()
+			smsMessage := "Dear " + name + ", your payment of  " + currency + " " + amount + " via " + code + " was received."
 
-			// Acknowledge API call
-			acknowledgeResponse := IPNAcknowledgeResponse{
+			// Acknowledge API call response
+			acknowledgeResponse := &IPNAcknowledgeResponse{
 				ApiKey:                       apiKey,
 				ApiSignature:                 apiSignature,
 				ApiType:                      "Receipt",
@@ -185,16 +169,14 @@ func (a *App) ITN(ctx context.Context) {
 				TransactionStatusDescription: "Transaction received successfully",
 				TransactionStatusAction:      "ACCEPT",
 				TransactionStatusReason:      "VALID_TRANSACTION",
-				TransactionCustomSMS:         "Dear " + name + ", your payment of  " + currency + " " + amount + " via " + code + " was received.",
+				TransactionCustomSMS:         smsMessage,
 				TransactionStatus:            "SUCCESS"}
 
 			serverResponse, _ := json.Marshal(acknowledgeResponse)
 
+			fmt.Println(serverResponse)
+
 			w.Header().Set("Content-Type", "application/json")
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-			w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Auth-Token, X-FILENAME, X-FILESIZE, Content-Disposition")
-			w.Header().Set("Access-Control-Allow-Credentials", "true")
 			w.Write(serverResponse)
 
 		}
@@ -203,6 +185,8 @@ func (a *App) ITN(ctx context.Context) {
 
 			reference := ctx.PostValue("transaction_reference")
 
+			fmt.Println("Ack ref , " + reference)
+
 			ipnTransaction := payments.IPNPayment{Reference: reference}
 
 			if err := ipnTransaction.GetTransactionByReference(a.DB); err != nil {
@@ -210,9 +194,9 @@ func (a *App) ITN(ctx context.Context) {
 				return
 			}
 
-			// Complete the transaction
-
-			fmt.Println("Success")
+		
+			//PROCESS THE TRANSACTION
+			
 		}
 
 	} else {
@@ -220,6 +204,7 @@ func (a *App) ITN(ctx context.Context) {
 	}
 
 }
+
 
 ```
 
