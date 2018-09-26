@@ -92,6 +92,20 @@ import (
     ...
 )
 
+type IPNAcknowledgeResponse struct {
+	ApiKey                       string `json:"api_key"`
+	ApiSignature                 string `json:"api_signature"`
+	ApiVersion                   string `json:"api_version"`
+	ApiType                      string `json:"api_type"`
+	TransactionStatus            string `json:"transaction_status"`
+	TransactionReference         string `json:"transaction_reference"`
+	TransactionStatusCode        string `json:"transaction_status_code"`
+	TransactionStatusDescription string `json:"transaction_status_description"`
+	TransactionStatusReason      string `json:"transaction_status_reason"`
+	TransactionStatusAction      string `json:"transaction_status_action"`
+	TransactionCustomSMS         string `json:"transaction_custom_sms"`
+}
+
 // I'm using the iris framework, so some functions may vary.
 
 // Lipisha functions remain the same regardless
