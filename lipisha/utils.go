@@ -32,6 +32,10 @@ func (app *Lipisha) getURLResponse(endPoint string, data url.Values) (string, er
 		log.Println(urlStr)
 	}
 
+	if app.Debug {
+		log.Println(data.Encode())
+	}
+
 	client := netClient
 	r, _ := http.NewRequest("POST", urlStr, strings.NewReader(data.Encode()))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")

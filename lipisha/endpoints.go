@@ -1,6 +1,9 @@
 package lipisha
 
-import "net/url"
+import (
+	"net/url"
+	"strconv"
+)
 
 const (
 	getAccountBalance        = "/get_balance"
@@ -36,7 +39,7 @@ func (app *Lipisha) GetAccountBalance() (string, error) {
 func (app *Lipisha) GetAccountFloat(accountNumber int) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", string(accountNumber))
+	data.Set("account_number", strconv.Itoa(accountNumber))
 
 	return app.getURLResponse(getAccountFloat, data)
 }
@@ -47,9 +50,9 @@ func (app *Lipisha) GetAccountFloat(accountNumber int) (string, error) {
 func (app *Lipisha) RequestMoney(accountNumber, mobileNumber, amount int, method, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", string(accountNumber))
-	data.Set("mobile_number", string(mobileNumber))
-	data.Set("amount", string(amount))
+	data.Set("account_number", strconv.Itoa(accountNumber))
+	data.Set("mobile_number", strconv.Itoa(mobileNumber))
+	data.Set("amount", strconv.Itoa(amount))
 	data.Set("method", method)
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
@@ -63,9 +66,9 @@ func (app *Lipisha) RequestMoney(accountNumber, mobileNumber, amount int, method
 func (app *Lipisha) SendMoney(accountNumber, mobileNumber, amount int, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", string(accountNumber))
-	data.Set("mobile_number", string(mobileNumber))
-	data.Set("amount", string(amount))
+	data.Set("account_number", strconv.Itoa(accountNumber))
+	data.Set("mobile_number", strconv.Itoa(mobileNumber))
+	data.Set("amount", strconv.Itoa(amount))
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
 
@@ -78,9 +81,9 @@ func (app *Lipisha) SendMoney(accountNumber, mobileNumber, amount int, currency,
 func (app *Lipisha) SendAirtime(accountNumber, mobileNumber, amount int, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", string(accountNumber))
-	data.Set("mobile_number", string(mobileNumber))
-	data.Set("amount", string(amount))
+	data.Set("account_number", strconv.Itoa(accountNumber))
+	data.Set("mobile_number", strconv.Itoa(mobileNumber))
+	data.Set("amount", strconv.Itoa(amount))
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
 
@@ -92,8 +95,8 @@ func (app *Lipisha) SendAirtime(accountNumber, mobileNumber, amount int, currenc
 func (app *Lipisha) SendSMS(accountNumber, mobileNumber int, message, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", string(accountNumber))
-	data.Set("mobile_number", string(mobileNumber))
+	data.Set("account_number", strconv.Itoa(accountNumber))
+	data.Set("mobile_number", strconv.Itoa(mobileNumber))
 	data.Set("message", message)
 	data.Set("reference", myReference)
 
@@ -110,7 +113,7 @@ func (app *Lipisha) SendSMS(accountNumber, mobileNumber int, message, myReferenc
 func (app *Lipisha) AuthorizeCardTransaction(accountNumber, amount int, cardNumber, addressOne, addressTwo, expiry, cardHolderName, email, mobileNumber, country, state, zip, securityCode, currency, myReference string) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", string(accountNumber))
+	data.Set("account_number", strconv.Itoa(accountNumber))
 	data.Set("mobile_number", mobileNumber)
 	data.Set("card_number", cardNumber)
 	data.Set("address1", addressOne)
@@ -121,7 +124,7 @@ func (app *Lipisha) AuthorizeCardTransaction(accountNumber, amount int, cardNumb
 	data.Set("country", country)
 	data.Set("state", state)
 	data.Set("zip", zip)
-	data.Set("amount", string(amount))
+	data.Set("amount", strconv.Itoa(amount))
 	data.Set("security_code", securityCode)
 	data.Set("currency", currency)
 	data.Set("reference", myReference)
@@ -169,8 +172,8 @@ func (app *Lipisha) VoidCardTransaction(transactionIndex, transactionReference s
 func (app *Lipisha) RequestSettlement(toAccountNumber, amount int) (string, error) {
 
 	data := url.Values{}
-	data.Set("account_number", string(toAccountNumber))
-	data.Set("amount", string(amount))
+	data.Set("account_number", strconv.Itoa(toAccountNumber))
+	data.Set("amount", strconv.Itoa(amount))
 
 	return app.getURLResponse(requestSettlement, data)
 }
