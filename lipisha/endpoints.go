@@ -110,7 +110,7 @@ func (app *Lipisha) SendSMS(accountNumber, mobileNumber int, message, myReferenc
 // function with the transaction_index and transaction_reference returned by this
 // function to actually move the money to your account.
 // Kindly note that in some cases, debit card transactions may be settled before the Complete Card Transaction API call is completed and may NOT be reversible depending on the issuing bank.
-func (app *Lipisha) AuthorizeCardTransaction(accountNumber, amount int, cardNumber, addressOne, addressTwo, expiry, cardHolderName, email, mobileNumber, country, state, zip, securityCode, currency, myReference string) (string, error) {
+func (app *Lipisha) AuthorizeCardTransaction(accountNumber, amount int, cardNumber, addressOne, addressTwo, expiry, cardHolderName, email, mobileNumber, country, state, zip, securityCode, currency) (string, error) {
 
 	data := url.Values{}
 	data.Set("account_number", strconv.Itoa(accountNumber))
@@ -127,7 +127,6 @@ func (app *Lipisha) AuthorizeCardTransaction(accountNumber, amount int, cardNumb
 	data.Set("amount", strconv.Itoa(amount))
 	data.Set("security_code", securityCode)
 	data.Set("currency", currency)
-	data.Set("reference", myReference)
 
 	return app.getURLResponse(authorizeCardTransaction, data)
 }
