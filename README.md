@@ -1,9 +1,9 @@
 # Lipisha Payments Go SDK
 
-This package provides bindings for the Lipisha Payments API (http://developer.lipisha.com/)
+This package provides bindings for the Lipisha Payments API (https://developer.lipisha.com/)
  
  - Free software : MIT license
- - Documentation : http://developer.lipisha.com
+ - Documentation : https://developer.lipisha.com
 
 ### Features
  - Get account balance
